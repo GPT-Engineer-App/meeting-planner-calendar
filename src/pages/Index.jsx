@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Container, Text, VStack, Box, HStack } from "@chakra-ui/react";
+import { Container, Text, VStack, Box, HStack, Image } from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+
+import meetingIcon from "../assets/meeting-icon.png";
 
 const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -10,6 +12,16 @@ const Index = () => {
     { date: "2024-06-11", title: "Réunion client", description: "Présentation du projet au client." },
     { date: "2024-06-12", title: "Réunion de suivi", description: "Mise à jour sur l'avancement du projet." },
   ]);
+
+  const tileContent = ({ date, view }) => {
+    if (view === "month") {
+      const meeting = meetings.find((meeting) => new Date(meeting.date).toDateString() === date.toDateString());
+      if (meeting) {
+        return <Image src={meetingIcon} alt="Meeting" boxSize="20px" />;
+      }
+    }
+    return null;
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -20,7 +32,7 @@ const Index = () => {
       <VStack spacing={4} width="100%">
         <Text fontSize="2xl">Calendrier de Réunions</Text>
         <Box width="100%">
-          <Calendar onChange={handleDateChange} value={selectedDate} />
+          <Calendar onChange={handleDateChange} value={selectedDate} tileContent={tileContent} />
         </Box>
         <Text fontSize="lg">Réunions pour le {selectedDate.toDateString()}:</Text>
         <VStack spacing={2} width="100%">
