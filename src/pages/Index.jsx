@@ -5,7 +5,11 @@ import "react-calendar/dist/Calendar.css";
 
 const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [meetings, setMeetings] = useState([]);
+  const [meetings, setMeetings] = useState([
+    { date: "2024-06-10", title: "Réunion d'équipe", description: "Discussion sur les objectifs de la semaine." },
+    { date: "2024-06-11", title: "Réunion client", description: "Présentation du projet au client." },
+    { date: "2024-06-12", title: "Réunion de suivi", description: "Mise à jour sur l'avancement du projet." },
+  ]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
